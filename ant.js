@@ -71,7 +71,7 @@ const loop = (callback, game) => {
     game = step(game);
     callback && callback(game);
     loop(callback, game);
-  }, 500);
+  }, 1000);
 };
 
 window.Ant = {

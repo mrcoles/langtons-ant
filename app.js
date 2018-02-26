@@ -9,11 +9,8 @@ canvas.height = game.grid.length * cellSize;
 
 const draw = game => {
   let { grid, ant } = game;
-  console.log("draw"); //REM
   grid.forEach((row, row_index) => {
-    console.log("row", row, row_index); //REM
     row.forEach((val, col_index) => {
-      console.log("col", val, col_index); //REM
       ctx.fillStyle = val === Ant.WHITE ? "#fff" : "#000";
       ctx.fillRect(
         col_index * cellSize,
@@ -32,12 +29,18 @@ const draw = game => {
   });
   ctx.save();
   ctx.fillStyle = "red";
-  ctx.fontStyle = `Arial ${cellSize / 2}px`;
+  ctx.font = `${cellSize * 0.5}px Arial`;
   // ctx.rotate(-(ant.dir + 1) * Math.PI / 2);
-  ctx.fillText(
+  console.log(
     "ANT",
+    JSON.stringify(ant),
+    ant.col * cellSize,
+    ant.row * cellSize
+  );
+  ctx.fillText(
+    "🐜",
     ant.col * cellSize + cellSize / 4,
-    ant.row * cellSize + cellSize / 4
+    (ant.row + 1) * cellSize - cellSize / 4
   );
   ctx.restore();
 };
