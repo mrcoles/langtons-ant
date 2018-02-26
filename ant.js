@@ -36,27 +36,31 @@ const step = game => {
   ant = Object.assign({}, ant);
   let color = grid[ant.row][ant.col];
   ant.dir = (ant.dir + (color === WHITE ? 1 : 3)) % 4;
-  grid[ant.row][ant.col] = color === WHITE ? BLACK : WHITE;
+
+  let { row, col } = ant;
 
   let row_max = grid.length - 1;
   let col_max = grid[0].length - 1;
 
   switch (ant.dir) {
     case DIR_UP:
-      ant.row = Math.max(0, ant.row - 1);
+      ant.row = Math.max(0, row - 1);
       break;
     case DIR_DOWN:
-      ant.row = Math.min(row_max, ant.row + 1);
+      ant.row = Math.min(row_max, row + 1);
       break;
     case DIR_LEFT:
-      ant.col = Math.max(0, ant.col - 1);
+      ant.col = Math.max(0, col - 1);
       break;
     case DIR_RIGHT:
-      ant.col = Math.min(col_max, ant.col + 1);
+      ant.col = Math.min(col_max, col + 1);
       break;
     default:
       throw new Error(`UKNOWN DIRECTIONS: ${ant.dir}`);
   }
+
+  (row !== ant.row || col !== ant.col) &&
+    (grid[row][col] = color === WHITE ? BLACK : WHITE);
 
   return { grid, ant };
 };
