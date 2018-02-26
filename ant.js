@@ -15,6 +15,7 @@ const makeGrid = (rows, cols) => {
     }
     grid.push(row);
   }
+  return grid;
 };
 
 const initGame = () => {
@@ -31,10 +32,10 @@ const initGame = () => {
 
 const step = game => {
   let { grid, ant } = game;
-  grid = _shallowCopy(grid);
-  ant = _shallowCopy(ant);
+  grid = grid.map(x => x.slice());
+  ant = Object.assign({}, ant);
   let color = grid[ant.row][ant.col];
-  ant.dir = (ant.dir + (color === WHITE ? 1 : -1)) % 4;
+  ant.dir = (ant.dir + (color === WHITE ? 1 : 3)) % 4;
   grid[ant.row][ant.col] = color === WHITE ? BLACK : WHITE;
 
   let row_max = grid.length - 1;
@@ -60,17 +61,18 @@ const step = game => {
   return { grid, ant };
 };
 
-const _shallowCopy = obj => Object.assign({}, obj);
-
 const loop = (callback, game) => {
   game = game || initGame();
   setTimeout(() => {
-    callback && callback();
+    game = step(game);
+    callback && callback(game);
     loop(callback, game);
   }, 500);
 };
 
 window.Ant = {
+  WHITE,
+  BLACK,
   initGame,
   step,
   loop
