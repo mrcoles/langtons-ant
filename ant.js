@@ -67,11 +67,13 @@ const step = game => {
 
 const loop = (callback, game) => {
   game = game || initGame();
-  setTimeout(() => {
-    game = step(game);
-    callback && callback(game);
-    loop(callback, game);
-  }, 1000);
+  game = step(game);
+  let result = callback ? callback(game) : { goAgain: true };
+
+  result.goAgain &&
+    setTimeout(() => {
+      loop(callback, game);
+    }, result.delay === undefined ? 1000 : result.delay);
 };
 
 window.Ant = {
