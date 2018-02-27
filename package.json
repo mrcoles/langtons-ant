@@ -1,0 +1,13 @@
+{
+  "name": "langtons-ant",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Peter Coles <peter@mrcoles.com>",
+  "license": "MIT",
+  "dependencies": {
+    "babel-preset-env": "^1.6.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0"
+  }
+}
