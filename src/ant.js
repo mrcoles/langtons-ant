@@ -76,7 +76,7 @@ const loop = (callback, game) => {
     }, result.delay === undefined ? 1000 : result.delay);
 };
 
-window.Ant = {
+const Ant = {
   WHITE,
   BLACK,
   initGame,
@@ -84,6 +84,4 @@ window.Ant = {
   loop
 };
 
-// main runner
-
-// require.main === module && loop();
+export default Ant;
