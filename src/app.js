@@ -2,26 +2,12 @@ import Ant from "./ant";
 
 import antImgSrc from "./ant.png";
 
-console.log("antImg", antImg, typeof antImg); //REM
-
-//REM // let antCanvasSize = 40;
-// let antCanvas = document.createElement("canvas");
-// antCanvas.width = antCanvasSize;
-// antCanvas.height = antCanvasSize;
-//
 let antImg = new Image();
 antImg.src = antImgSrc;
 antImg.onload = () => {
   console.log(antImg);
 };
-//REM // antImg.onload = function() {
-//   let ctx = antCanvas.getContext("2d");
-//   let scalar = antCanvasSize / 128;
-//   ctx.scale(scalar, scalar);
-//   ctx.drawImage(this, 0, 0);
-// };
 
-// console.log("APP!", window.step);
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
 
@@ -82,11 +68,11 @@ const draw = game => {
   // 2 is down - 90deg
   // 3 is left - no change
   ctx.rotate((ant.dir - 3) * Math.PI / 2);
-  ctx.fillText("🐜", -cellSize / 4, cellSize / 4);
-  // let val = "🐜";
-  // // let val = "\xf0\x9f\x98\x87";
-  // ctx.fillText(val, -cellSize / 4, cellSize / 4);
-  // ctx.drawImage(antImg, -cellSize / 4, cellSize / 4);
+
+  let antRatio = 0.5;
+  ctx.scale(antRatio, antRatio);
+  ctx.drawImage(antImg, -antImg.width / 2, -antImg.height / 2);
+
   ctx.restore();
 
   return true;
