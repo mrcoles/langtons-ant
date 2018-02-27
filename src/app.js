@@ -1,13 +1,54 @@
 import Ant from "./ant";
 
+import antImgSrc from "./ant.png";
+
+console.log("antImg", antImg, typeof antImg); //REM
+
+//REM // let antCanvasSize = 40;
+// let antCanvas = document.createElement("canvas");
+// antCanvas.width = antCanvasSize;
+// antCanvas.height = antCanvasSize;
+//
+let antImg = new Image();
+antImg.src = antImgSrc;
+antImg.onload = () => {
+  console.log(antImg);
+};
+//REM // antImg.onload = function() {
+//   let ctx = antCanvas.getContext("2d");
+//   let scalar = antCanvasSize / 128;
+//   ctx.scale(scalar, scalar);
+//   ctx.drawImage(this, 0, 0);
+// };
+
 // console.log("APP!", window.step);
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
 
 let GAME = Ant.initGame();
 let cellSize = 50;
-canvas.width = GAME.grid[0].length * cellSize;
-canvas.height = GAME.grid.length * cellSize;
+let WIDTH = GAME.grid[0].length * cellSize;
+let HEIGHT = GAME.grid.length * cellSize;
+
+// canvas ratio woo! makes image sharp!
+// https://www.html5rocks.com/en/tutorials/canvas/hidpi/
+let devicePixelRatio = window.devicePixelRatio || 1;
+let backingStoreRatio =
+  ctx.webkitBackingStorePixelRatio ||
+  ctx.mozBackingStorePixelRatio ||
+  ctx.msBackingStorePixelRatio ||
+  ctx.oBackingStorePixelRatio ||
+  ctx.backingStorePixelRatio ||
+  1;
+let canvasRatio = devicePixelRatio / backingStoreRatio;
+
+console.log("canvasRatio", canvasRatio);
+
+canvas.width = WIDTH * canvasRatio;
+canvas.height = HEIGHT * canvasRatio;
+canvas.style.width = `${WIDTH}px`;
+canvas.style.height = `${HEIGHT}px`;
+ctx.scale(canvasRatio, canvasRatio);
 
 const draw = game => {
   let { grid, ant } = game;
@@ -41,22 +82,14 @@ const draw = game => {
   // 2 is down - 90deg
   // 3 is left - no change
   ctx.rotate((ant.dir - 3) * Math.PI / 2);
-  // console.log(
-  //   "ANT",
-  //   JSON.stringify(ant),
-  //   ant.col * cellSize,
-  //   ant.row * cellSize
-  // );
-  ctx.fillText(
-    "🐜",
-    -cellSize / 4,
-    cellSize / 4
-    // ant.col * cellSize + cellSize / 4,
-    // (ant.row + 1) * cellSize - cellSize / 4
-  );
+  ctx.fillText("🐜", -cellSize / 4, cellSize / 4);
+  // let val = "🐜";
+  // // let val = "\xf0\x9f\x98\x87";
+  // ctx.fillText(val, -cellSize / 4, cellSize / 4);
+  // ctx.drawImage(antImg, -cellSize / 4, cellSize / 4);
   ctx.restore();
 
-  return true; //false;
+  return true;
 };
 
 // loop
