@@ -2,20 +2,23 @@
 <html>
   <head>
     <meta charset=utf-8>
-    <title>Langstons Ant</title>
+    <title>Langton’s Ant</title>
     <link rel="icon" type="image/ico" sizes="32x32" href="./favicon.ico">
     <link rel="icon" type="image/png" sizes="128x128" href="./favicon.png">
     <style>
+      body { padding-bottom: 4em; }
       #canvas { border: 1px solid #ddd; }
     </style>
   </head>
   <body>
-    <h1>Langston’s Ant</h1>
+    <h1>Langton’s Ant</h1>
     <canvas id="canvas"></canvas>
     <br /><br />
     <button id="pause_play">Pause/Play</button>
-    <button id="step">Step</button>
-    <input type="number" id="delay" value="1000" />
+    <button id="step">Step</button> &nbsp;&nbsp;
+    delay: <input type="number" id="delay" value="1000" />
+    <br /><br />
+    <a href="https://github.com/mrcoles/langtons-ant">Source code</a>
     <script src="app.js"></script>
   </body>
 </html>

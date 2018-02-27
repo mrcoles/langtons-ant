@@ -4,9 +4,16 @@ import antImgSrc from "./ant.png";
 
 let antImg = new Image();
 antImg.src = antImgSrc;
-antImg.onload = () => {
-  console.log(antImg);
-};
+
+let imgLoader = new Promise((resolve, reject) => {
+  antImg.onload = () => {
+    console.log(antImg);
+    resolve(antImg);
+  };
+  antImg.onerror = e => {
+    reject(e);
+  };
+});
 
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
@@ -131,6 +138,6 @@ document.getElementById("delay").addEventListener(
   false
 );
 
-// main
+// main - wait for images to load!
 
-start();
+imgLoader.then(start).catch(console.error);
